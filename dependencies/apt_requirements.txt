@@ -1,0 +1,9 @@
+binutils
+libproj-dev
+gdal-bin
+gettext
+nano
+git
+libmagic1
+libpq-dev
+python-dev

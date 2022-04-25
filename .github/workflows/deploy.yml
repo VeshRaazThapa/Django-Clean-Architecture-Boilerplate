@@ -1,0 +1,25 @@
+name: Deploy
+on:
+  push:
+    branches:
+      - keb
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@master
+        env:
+          USERNAME: root
+          HOST: 167.86.85.184
+          PASSWORD: ${{ secrets.VPS_PASS }}
+          SCRIPT: |
+           cd django_websites/chilime
+           git pull origin master
+            cd django_cms_plugins
+            git pull origin master
+             docker exec -i chilime_web_1 npm run production
+             docker exec -i chilime_web_1 python manage.py collectstatic --noinput
+             docker restart chilime_web_1
+#           cd local_plugins
+#           git pull origin master

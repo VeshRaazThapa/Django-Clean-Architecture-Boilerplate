@@ -10,6 +10,8 @@ RUN pip install -r /dependencies/dev_requirements.txt
 RUN mkdir /code;
 WORKDIR /code
 ADD ./ /code
+RUN mkdir /code/core/static;
+RUN mkdir /code/core/static/webpack_bundles;
 RUN python manage.py collectstatic --noinput
 RUN apt-get clean
 # Node installation

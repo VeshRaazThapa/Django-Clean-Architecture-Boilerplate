@@ -3,7 +3,7 @@ import os
 from django.conf import settings
 from django.contrib.auth.models import Group, Permission
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from encryption.fields import EncryptedFileField
 from utils.helpers import municipality_admin_name,ward_admin_name,municipality_data_collector_name,ward_data_collector_name

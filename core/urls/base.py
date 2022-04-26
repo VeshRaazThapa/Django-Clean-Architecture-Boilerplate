@@ -19,11 +19,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls.i18n import i18n_patterns
 from django.urls import include, path
+from .auth import auth_urlpatterns
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
 ]
 urlpatterns += i18n_patterns(path("admin/", admin.site.urls), path("", include("dashboard.urls")),)
+urlpatterns += auth_urlpatterns
 
 # This is only needed when using runserver.
 if settings.DEBUG:

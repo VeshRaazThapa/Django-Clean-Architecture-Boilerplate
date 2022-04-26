@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 ]
 
 INNER_APPS = [
-    'core',
+    'apps.user',
 ]
 
 THIRD_PARTY_APPS = [

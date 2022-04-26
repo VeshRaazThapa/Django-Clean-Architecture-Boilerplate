@@ -7,7 +7,6 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 
 from .models import UserRole, UserProfile
-from core.models import Municipality, Ward
 
 User = get_user_model()
 
@@ -15,36 +14,21 @@ User = get_user_model()
 class UserRoleForm(forms.ModelForm):
     class Meta:
         model = UserRole
-        fields = ('user', 'group', 'municipality', 'ward')
+        fields = ('user', 'group')
 
     def __init__(self, *args, **kwargs):
         user_id = kwargs.pop('user_id')
         user = User.objects.get(id=user_id)
         super().__init__(*args, **kwargs)
-        self.fields['user'].widget.attrs['class'] = "form-control"
-        self.fields['municipality'].widget.attrs['class'] = "form-control"
-        self.fields['ward'].widget.attrs['class'] = "form-control"
-        self.fields['group'].widget.attrs['class'] = "form-control"
-        if user.is_superuser:
-            self.fields['municipality'].queryset = Municipality.objects.all()
-            self.fields['ward'].queryset = Ward.objects.all()
-            users = User.objects.filter(Q(is_superuser=True) | Q(id=-1)).values_list('id', flat=True)
-            self.fields['user'].queryset = User.objects.filter(~Q(id__in=list(users)))
-        else:
-            self.fields['municipality'].queryset = Municipality.objects.filter(roles__user_id=user_id)
-            self.fields['ward'].queryset = Ward.objects.filter(roles__user_id=user_id)
-
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('middle_name', 'citizenship_number', 'house_number', 'gender', 'phone')
+        fields = ('middle_name', 'gender', 'phone')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['middle_name'].widget.attrs['class'] = "form-control"
-        self.fields['citizenship_number'].widget.attrs['class'] = "form-control"
-        self.fields['house_number'].widget.attrs['class'] = "form-control"
         self.fields['gender'].widget.attrs['class'] = "form-control"
         self.fields['phone'].widget.attrs['class'] = "form-control"
 
@@ -53,7 +37,6 @@ class UserCreationForm(forms.Form):
     username = forms.CharField(required=True)
     password1 = forms.CharField(required=True, widget=forms.PasswordInput)
     password2 = forms.CharField(required=True, widget=forms.PasswordInput)
-    house_number = forms.CharField(required=False)
 
     def clean_username(self):
         username = self.cleaned_data['username']
@@ -84,8 +67,6 @@ class UserCreationForm(forms.Form):
         self.fields['password1'].widget.attrs['placeholder'] = "Password"
         self.fields['password2'].widget.attrs['class'] = "form-control"
         self.fields['password2'].widget.attrs['placeholder'] = "Confirm Password"
-        self.fields['house_number'].widget.attrs['class'] = "form-control"
-        self.fields['house_number'].widget.attrs['placeholder'] = "House Number"
 
 
 class ValidatingPasswordChangeForm(auth.forms.PasswordChangeForm):

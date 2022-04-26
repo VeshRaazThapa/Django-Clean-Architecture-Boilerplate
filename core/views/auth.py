@@ -1,8 +1,8 @@
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from django.shortcuts import render, redirect
 
-from user.forms import UserCreationForm
-from user.models import UserProfile
+from apps.user.forms import UserCreationForm
+from apps.user.models import UserProfile
 
 User = get_user_model()
 

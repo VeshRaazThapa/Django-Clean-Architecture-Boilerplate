@@ -131,9 +131,9 @@ fa:
 	make nrtw
 
 drs:
-	rsync -avzP chilime@173.212.218.196:/home/chilime/django/db_backups/dump_data10.sql chilime/
+	rsync -avzP user@IP:/home/chilime/django/db_backups/dump_data10.sql chilime/
 media_rsync:
-     	rsync -avzP chilime@173.212.218.196:/home/chilime/django/chilime/media chilime/
+     	rsync -avzP user@IP:/home/chilime/django/chilime/media chilime/
 
 ch_own:
 	sudo chown -R matrix-pc2 ../chilime

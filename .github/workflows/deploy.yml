@@ -11,7 +11,7 @@ jobs:
         uses: appleboy/ssh-action@master
         env:
           USERNAME: root
-          HOST: 167.86.85.184
+          HOST: Ip
           PASSWORD: ${{ secrets.VPS_PASS }}
           SCRIPT: |
            cd django_websites/chilime

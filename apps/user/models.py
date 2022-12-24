@@ -4,7 +4,7 @@ from django.contrib.auth.models import Group, Permission
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from apps.encryption.fields import EncryptedFileField
+# from apps.encryption.fields import EncryptedFileField
 
 class UserProfile(models.Model):
     GENDER_CHOICES = [("Male", _("Male")), ("Female", _("Female")), ("Other", _("Other"))]
@@ -53,7 +53,7 @@ class UserDocument(models.Model):
     DOCUMENT_TYPES = [("Citizenship", _("Citizenship")), ("Birth Certificate", _("Birth Certificate")), ]
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name="documents", on_delete=models.CASCADE)
     document_type = models.CharField(max_length=100)
-    document = EncryptedFileField(upload_to=upload_to)
+    # document = EncryptedFileField(upload_to=upload_to)
     created_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
